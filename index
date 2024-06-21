@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Smart Home Energy Management</title>
+</head>
+<body>
+    <h1>Smart Home Energy Management System</h1>
+    <div id="energy-data"></div>
+    <div id="device-status"></div>
+    <script>
+        function fetchEnergyData() {
+            fetch('/energy_data')
+                .then(response => response.json())
+                .then(data => {
+                    document.getElementById('energy-data').innerHTML = JSON.stringify(data, null, 2);
+                });
+        }
+
+        function fetchDeviceStatus() {
+            fetch('/device_status')
+                .then(response => response.json())
+                .then(data => {
+                    document.getElementById('device-status').innerHTML = JSON.stringify(data, null, 2);
+                });
+        }
+
+        setInterval(fetchEnergyData, 60000); // Fetch energy data every minute
+        setInterval(fetchDeviceStatus, 10000); // Fetch device status every 10 seconds
+        fetchEnergyData();
+        fetchDeviceStatus();
+    </script>
+</body>
+</html>
+
